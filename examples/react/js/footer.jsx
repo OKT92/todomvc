@@ -6,18 +6,19 @@
 var app = app || {};
 
 (function () {
-	'use strict';
+	"use strict";
 
 	app.TodoFooter = React.createClass({
 		render: function () {
-			var activeTodoWord = app.Utils.pluralize(this.props.count, 'item');
+			var activeTodoWord = app.Utils.pluralize(this.props.count, "item");
 			var clearButton = null;
 
 			if (this.props.completedCount > 0) {
 				clearButton = (
 					<button
 						className="clear-completed"
-						onClick={this.props.onClearCompleted}>
+						onClick={this.props.onClearCompleted}
+					>
 						Clear completed
 					</button>
 				);
@@ -27,36 +28,50 @@ var app = app || {};
 			return (
 				<footer className="footer">
 					<span className="todo-count">
-						<strong>{this.props.count}</strong> {activeTodoWord} left
+						<strong>
+							{this.props.count}/{this.props.count + this.props.completedCount}
+						</strong>{" "}
+						{activeTodoWord} left
 					</span>
 					<ul className="filters">
 						<li>
 							<a
 								href="#/"
-								className={classNames({selected: nowShowing === app.ALL_TODOS})}>
-									All
+								className={classNames({
+									selected: nowShowing === app.ALL_TODOS,
+								})}
+							>
+								All
 							</a>
-						</li>
-						{' '}
+						</li>{" "}
 						<li>
 							<a
 								href="#/active"
-								className={classNames({selected: nowShowing === app.ACTIVE_TODOS})}>
-									Active
+								className={classNames({
+									selected: nowShowing === app.ACTIVE_TODOS,
+								})}
+							>
+								Active
 							</a>
-						</li>
-						{' '}
+						</li>{" "}
 						<li>
 							<a
 								href="#/completed"
-								className={classNames({selected: nowShowing === app.COMPLETED_TODOS})}>
-									Completed
+								className={classNames({
+									selected: nowShowing === app.COMPLETED_TODOS,
+								})}
+							>
+								Completed
 							</a>
 						</li>
+						<li>
+							<button onClick={this.props.onSortByDate}>Sort by date</button>
+						</li>
 					</ul>
+
 					{clearButton}
 				</footer>
 			);
-		}
+		},
 	});
 })();

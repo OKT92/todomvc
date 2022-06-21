@@ -6,7 +6,7 @@
 var app = app || {};
 
 (function () {
-	'use strict';
+	"use strict";
 
 	var ESCAPE_KEY = 27;
 	var ENTER_KEY = 13;
@@ -16,7 +16,7 @@ var app = app || {};
 			var val = this.state.editText.trim();
 			if (val) {
 				this.props.onSave(val);
-				this.setState({editText: val});
+				this.setState({ editText: val });
 			} else {
 				this.props.onDestroy();
 			}
@@ -24,12 +24,12 @@ var app = app || {};
 
 		handleEdit: function () {
 			this.props.onEdit();
-			this.setState({editText: this.props.todo.title});
+			this.setState({ editText: this.props.todo.title });
 		},
 
 		handleKeyDown: function (event) {
 			if (event.which === ESCAPE_KEY) {
-				this.setState({editText: this.props.todo.title});
+				this.setState({ editText: this.props.todo.title });
 				this.props.onCancel(event);
 			} else if (event.which === ENTER_KEY) {
 				this.handleSubmit(event);
@@ -38,12 +38,12 @@ var app = app || {};
 
 		handleChange: function (event) {
 			if (this.props.editing) {
-				this.setState({editText: event.target.value});
+				this.setState({ editText: event.target.value });
 			}
 		},
 
 		getInitialState: function () {
-			return {editText: this.props.todo.title};
+			return { editText: this.props.todo.title };
 		},
 
 		/**
@@ -77,10 +77,12 @@ var app = app || {};
 
 		render: function () {
 			return (
-				<li className={classNames({
-					completed: this.props.todo.completed,
-					editing: this.props.editing
-				})}>
+				<li
+					className={classNames({
+						completed: this.props.todo.completed,
+						editing: this.props.editing,
+					})}
+				>
 					<div className="view">
 						<input
 							className="toggle"
@@ -89,7 +91,9 @@ var app = app || {};
 							onChange={this.props.onToggle}
 						/>
 						<label onDoubleClick={this.handleEdit}>
-							{this.props.todo.title}
+							{this.props.todo.title +
+								" - " +
+								new Date(this.props.todo.createdAt).toLocaleString()}
 						</label>
 						<button className="destroy" onClick={this.props.onDestroy} />
 					</div>
@@ -103,6 +107,6 @@ var app = app || {};
 					/>
 				</li>
 			);
-		}
+		},
 	});
 })();
